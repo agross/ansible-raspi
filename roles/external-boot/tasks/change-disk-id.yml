@@ -1,0 +1,21 @@
+- name: Get disk ID of {{ device }}
+  command: >-
+    blkid -s PTUUID /dev/{{ device }}
+  changed_when: false
+  register: partition_id
+
+- name: Change {{ device }} disk ID to {{ disk_id }}
+  shell:
+    warn: false
+    cmd: >-
+      (
+        printf 'x\n' # Enter expert mode.
+        printf 'i\n' # Change disk identifier.
+        printf '0x{{ disk_id }}\n' # Enter new disk identfier.
+        printf 'r\n' # Return to main menu.
+        printf 'w\n' # Write.
+        sleep 3 # https://unix.stackexchange.com/a/521858/72946
+        printf 'q\n' # Quit.
+      ) | fdisk /dev/{{ device }}
+  # Expected: /dev/sda: PTUUID="deadbeef"
+  when: not 'PTUUID="' ~ disk_id ~ '"' in partition_id.stdout

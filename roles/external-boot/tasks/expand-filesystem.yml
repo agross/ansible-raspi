@@ -1,0 +1,13 @@
+- name: Get free space on {{ device }}
+  command: >-
+    parted /dev/{{ device }} print free
+  changed_when: false
+  register: free_space
+
+- name: Resize partition /dev/{{ device }}{{ root_partition }}
+  command: parted --script /dev/{{ device }} resizepart {{ root_partition }} 100%
+  when: "'Free Space' in free_space.stdout_lines | last"
+
+- name: Resize file system on /dev/{{ device }}{{ root_partition }}
+  command: resize2fs /dev/{{ device }}{{ root_partition }}
+  when: "'Free Space' in free_space.stdout_lines | last"

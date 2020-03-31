@@ -1,0 +1,6 @@
+- include: guard.yml
+- include: keep-ssh-enabled.yml
+- include: change-disk-id.yml
+- include: update-boot-cmdline.yml
+- include: update-fstab.yml
+- include: expand-filesystem.yml

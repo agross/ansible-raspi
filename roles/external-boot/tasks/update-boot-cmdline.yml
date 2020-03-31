@@ -1,0 +1,31 @@
+- name: Create a backup of /boot/cmdline.txt
+  copy:
+    src: /boot/cmdline.txt
+    remote_src: true
+    dest: /boot/cmdline.txt.bak
+    # Do not overwrite existing files.
+    force: false
+
+- name: Update boot command line
+  replace:
+    path: /boot/cmdline.txt
+    regexp: (\s+root=){{ ansible_facts['cmdline']['root'] }}(\s+)
+    replace: \1{{ partuuid }}\2
+  register: boot_command_line
+
+- name: Reboot system
+  reboot:
+  when: boot_command_line.changed
+
+- name: Check current root filesystem device
+  command: >-
+    findmnt --noheadings --output SOURCE /
+  changed_when: false
+  register: new_boot_device
+
+- name: Fail if boot device did not change after reboot
+  fail:
+    msg: >-
+      The boot device could not be changed to /dev/{{ device }}{{ root_partition }}
+      and is still {{ new_boot_device.stdout }}.
+  when: not "/dev/" ~ device ~ root_partition == new_boot_device.stdout

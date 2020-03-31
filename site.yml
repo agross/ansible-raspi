@@ -1,0 +1,24 @@
+- name: Boot from external disk
+  hosts: raspberries
+  become: true
+  roles:
+    - name: external-boot
+      tags: external-boot
+
+# - name: Apply common configuration to all nodes
+#   hosts: all
+#   become: true
+#   roles:
+#     - name: common
+#       tags: common
+#     - name: docker
+#       tags: docker
+
+# - name: Install web server
+#   hosts: web
+#   become: true
+#   roles:
+#     - name: nginx
+#       tags: nginx
+#     - name: nginx-example
+#       tags: nginx-example

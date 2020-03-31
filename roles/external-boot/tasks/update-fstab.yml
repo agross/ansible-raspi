@@ -1,0 +1,13 @@
+- name: Update device for root filesystem in /etc/fstab
+  lineinfile:
+    path: /etc/fstab
+    regexp: '^PARTUUID=.*?(\s+\/\s+.*)$'
+    line: '{{ partuuid }}\1'
+    backrefs: true
+    backup: yes
+    state: present
+  register: fstab
+
+- name: Reboot system
+  reboot:
+  when: fstab.changed

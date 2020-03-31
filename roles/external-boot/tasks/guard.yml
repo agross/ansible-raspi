@@ -1,0 +1,8 @@
+- name: Verify device {{ device }} exists and has partitions
+  fail:
+      msg: Partition {{ item }} does not exist. Is the disk attached?
+  when: ansible_facts['devices'][device]['partitions'][item] is not defined
+  loop:
+    - "{{ device }}{{ boot_partition }}"
+    - "{{ device }}{{ root_partition }}"
+  changed_when: false

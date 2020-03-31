@@ -1,0 +1,63 @@
+- name: Mount external root partition
+  mount:
+    path: /mnt
+    src: /dev/{{ device }}{{ root_partition }}
+    fstype: ext4
+    opts: noatime
+    state: mounted
+    fstab: /tmp/we-do-not-want-to-change-fstab
+  changed_when: false
+
+- name: Copy the SSH host keys generated while booting from SD card
+  copy:
+    src: /etc/ssh/
+    remote_src: true
+    dest: /mnt/etc/ssh
+    mode: preserve
+    # Overwrite existing files.
+    force: true
+
+- name: Get SSH host key files
+  find:
+    paths: /mnt/etc/ssh
+    patterns: '*_key'
+    file_type: file
+  register: key_files
+
+- name: Set permissions on SSH host key files
+  file:
+    mode: '600'
+    path: "{{ item.path }}"
+  loop: "{{ key_files.files }}"
+  loop_control:
+    label: "{{ item.path }}"
+
+- name: Disable SSH host key regeneration on first boot from external disk
+  file:
+    path: /mnt/etc/systemd/system/multi-user.target.wants/regenerate_ssh_host_keys.service
+    state: absent
+
+- name: Enable SSH service when booting from external disk
+  file:
+    src: /lib/systemd/system/ssh.service
+    dest: /mnt/etc/systemd/system/multi-user.target.wants/ssh.service
+    state: link
+    # Overwrite existing files.
+    force: true
+
+- name: Copy SSH user directory
+  copy:
+    src: /home/{{ ansible_user }}/.ssh/
+    remote_src: true
+    dest: /mnt/home/{{ ansible_user }}/.ssh
+    mode: preserve
+    owner: "{{ ansible_user }}"
+    group: "{{ ansible_user }}"
+    # Overwrite existing files.
+    force: true
+
+- name: Unmount external root partition
+  mount:
+    path: /mnt
+    state: unmounted
+  changed_when: false

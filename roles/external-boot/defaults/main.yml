@@ -1,0 +1,6 @@
+device: sda
+boot_partition: 1
+root_partition: 2
+disk_id: deadbeef
+
+partuuid: "PARTUUID={{ disk_id }}-{{ '%02d' | format(root_partition) }}"
