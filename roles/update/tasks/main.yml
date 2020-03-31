@@ -1,0 +1,19 @@
+- name: Upgrade all packages
+  apt:
+    upgrade: full
+    state: latest
+    autoclean: true
+    autoremove: true
+    cache_valid_time: 3600
+    force_apt_get: true
+    update_cache: true
+
+- name: Check if a reboot is required
+  stat:
+    path: /var/run/reboot-required
+  register: reboot_required
+  changed_when: false
+
+- name: Reboot if the kernel was updated
+  reboot:
+  when: reboot_required.stat.exists
