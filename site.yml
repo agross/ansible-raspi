@@ -11,3 +11,10 @@
   roles:
     - name: update
       tags: update
+
+- name: Install docker and docker-compose
+  hosts: raspberries
+  become: true
+  roles:
+    - name: docker
+      tags: docker
