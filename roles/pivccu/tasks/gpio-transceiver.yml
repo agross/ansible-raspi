@@ -1,0 +1,37 @@
+- name: Handling for GPIO-connected transceivers
+  when: gpio_header_transceiver | default(false) | bool == true
+  block:
+    - name: Install GPIO device tree patches
+      apt:
+        name:
+          - pivccu-modules-raspberrypi
+        state: latest
+      notify: reboot
+
+    - name: Enable UART GPIO pins by disabling Bluetooth
+      lineinfile:
+        path: /boot/config.txt
+        line: dtoverlay=pi3-disable-bt
+      notify: reboot
+
+    - name: Stop and disable hciuart.service
+      systemd:
+        name: hciuart.service
+        state: stopped
+        enabled: false
+        masked: true
+
+    # backup: true in the replace task below does not work on FAT volumes.
+    - name: Create a backup of /boot/cmdline.txt
+      copy:
+        src: /boot/cmdline.txt
+        remote_src: true
+        dest: /boot/cmdline.txt.bak-pivccu
+        # Do not overwrite existing files.
+        force: false
+
+    - name: Disable serial console
+      replace:
+        path: /boot/cmdline.txt
+        regexp: \bconsole=(serial|ttyAMA0)\S+
+      notify: reboot

@@ -1,0 +1,30 @@
+- name: Install required packages
+  apt:
+    name:
+      - build-essential
+      - bison
+      - flex
+      - libssl-dev
+      - raspberrypi-kernel-headers
+    state: latest
+
+- name: Add apt key
+  apt_key:
+    url: https://www.pivccu.de/piVCCU/public.key
+    state: present
+
+- name: Add apt repository
+  apt_repository:
+    repo: >-
+      deb
+      https://www.pivccu.de/piVCCU
+      stable
+      main
+    state: present
+
+- name: Install kernel modules
+  apt:
+    name:
+      - pivccu-modules-dkms
+    state: latest
+  notify: reboot

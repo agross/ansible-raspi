@@ -1,0 +1,25 @@
+- name: Remove dhcpcd5
+  apt:
+    name:
+      - dhcpcd5
+    state: absent
+
+- name: Install bridge-utils
+  apt:
+    name:
+      - bridge-utils
+    state: latest
+
+- name: Get ethernet interfaces
+  shell: >-
+    ip --brief link show |
+      cut --delimiter ' ' --fields 1 |
+      grep --regexp '^e.*'
+  changed_when: false
+  register: eth_interfaces
+
+- name: Copy network configuration file for {{ eth_interfaces.stdout_lines | first }}
+  template:
+    src: ../templates/network-interfaces.j2
+    dest: /etc/network/interfaces
+  notify: reboot

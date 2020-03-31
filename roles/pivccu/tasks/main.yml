@@ -1,0 +1,8 @@
+- include: dependencies.yml
+- include: gpio-transceiver.yml
+- include: network.yml
+
+- name: If some task requested a reboot, do it now
+  meta: flush_handlers
+
+- include: install.yml

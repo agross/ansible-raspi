@@ -1,0 +1,21 @@
+- name: Install
+  apt:
+    name:
+      - pivccu3
+    state: latest
+
+- name: Get information
+  command:
+    pivccu-info
+  changed_when: false
+  register: pivccu_info
+
+- name: Show information
+  debug:
+    var: pivccu_info.stdout_lines
+  changed_when: false
+
+- name: Verify
+  fail:
+    msg: piVCCU appears not to be running.
+  when: not 'RUNNING' in pivccu_info.stdout

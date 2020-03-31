@@ -18,3 +18,13 @@
   roles:
     - name: docker
       tags: docker
+
+- name: Install piVCCU
+  hosts: raspberries
+  become: true
+  roles:
+    - name: pivccu
+      tags: pivccu
+
+# pivccu network kaputt nach reboot mit bridge und neustart
+# keyboard layout, US localization
