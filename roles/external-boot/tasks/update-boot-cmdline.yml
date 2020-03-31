@@ -2,7 +2,7 @@
   copy:
     src: /boot/cmdline.txt
     remote_src: true
-    dest: /boot/cmdline.txt.bak
+    dest: /boot/cmdline.txt.bak-external-boot
     # Do not overwrite existing files.
     force: false
 
