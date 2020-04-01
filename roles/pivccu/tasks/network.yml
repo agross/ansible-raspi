@@ -23,3 +23,38 @@
     src: ../templates/network-interfaces.j2
     dest: /etc/network/interfaces
   notify: reboot
+
+- name: Gather installed packages
+  package_facts:
+
+- name: Check if docker is installed
+  set_fact:
+    docker_packages: >-
+      {{
+        query('dict', ansible_facts.packages) |
+          selectattr('key', 'match', 'docker') |
+          list
+      }}
+
+- name: Enable firewall rules for docker compatibuility
+  when: docker_packages | length > 0
+  block:
+    - name: Print docker packages
+      debug:
+        msg: >-
+          {{ docker_packages | length }} packages named docker are installed:
+          {{ docker_packages | map(attribute = 'key') | list }}
+
+    - name: Create directory for docker service override
+      file:
+        path: /etc/systemd/system/docker.service.d/
+        state: directory
+
+    - name: Add firewall rules for docker compatibility before starting docker
+      template:
+        src: ../templates/docker-service-override.conf.j2
+        dest: /etc/systemd/system/docker.service.d/pivccu-compatibility.conf
+
+    - name: Reload systemd
+      systemd:
+        daemon_reload: true

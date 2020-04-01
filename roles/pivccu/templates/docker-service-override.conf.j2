@@ -1,0 +1,4 @@
+[Service]
+# This one is OK to fail because the rule might not exist.
+ExecStartPre=-/usr/sbin/iptables --delete FORWARD --proto all --in-interface br0 --jump ACCEPT
+ExecStartPre=/usr/sbin/iptables --append FORWARD --proto all --in-interface br0 --jump ACCEPT
