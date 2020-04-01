@@ -33,4 +33,11 @@
     - name: mqtt
       tags: mqtt
 
+- name: Install ioBroker
+  hosts: raspberries
+  become: true
+  roles:
+    - name: iobroker
+      tags: iobroker
+
 # keyboard layout, US localization
