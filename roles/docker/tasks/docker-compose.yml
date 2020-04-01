@@ -1,0 +1,18 @@
+- name: Install required packages for docker-compose
+  apt:
+    name:
+      - python3-pip
+      - libffi-dev
+      - libssl-dev
+    state: latest
+
+- name: Check if docker-compose is installed
+  shell:
+    pip3 list | grep docker-compose
+  changed_when: false
+  ignore_errors: true
+  register: installed
+
+- name: Install docker-compose
+  command: pip3 install docker-compose
+  when: installed is failed

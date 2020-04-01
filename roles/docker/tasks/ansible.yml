@@ -1,0 +1,21 @@
+- name: Install required packages to use docker with Ansible
+  apt:
+    name:
+      - python-pip
+      - python-setuptools
+    state: latest
+
+- name: Install python-backports.ssl-match-hostname (Debian Buster)
+  apt:
+    name:
+      - python-backports.ssl-match-hostname
+    state: latest
+  when:
+    ansible_distribution == 'Debian' and
+    ansible_distribution_release == 'buster'
+
+- name: Install required pip packages to use docker with Ansible
+  pip:
+    name:
+      - docker
+    state: latest
