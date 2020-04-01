@@ -22,7 +22,7 @@
   template:
     src: ../templates/network-interfaces.j2
     dest: /etc/network/interfaces
-  notify: reboot
+  notify: Reboot
 
 - name: Gather installed packages
   package_facts:

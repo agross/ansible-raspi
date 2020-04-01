@@ -27,4 +27,4 @@
     name:
       - pivccu-modules-dkms
     state: latest
-  notify: reboot
+  notify: Reboot

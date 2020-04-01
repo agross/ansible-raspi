@@ -6,13 +6,13 @@
         name:
           - pivccu-modules-raspberrypi
         state: latest
-      notify: reboot
+      notify: Reboot
 
     - name: Enable UART GPIO pins by disabling Bluetooth
       lineinfile:
         path: /boot/config.txt
         line: dtoverlay=pi3-disable-bt
-      notify: reboot
+      notify: Reboot
 
     - name: Stop and disable hciuart.service
       systemd:
@@ -34,4 +34,4 @@
       replace:
         path: /boot/cmdline.txt
         regexp: \bconsole=(serial|ttyAMA0)\S+
-      notify: reboot
+      notify: Reboot
