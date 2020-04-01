@@ -4,6 +4,23 @@
       - pivccu3
     state: latest
 
+- name: Force binding piVCCU's network interface to the br0 bridge
+  # Docker will create other br* interfaces that we cannot use.
+  lineinfile:
+    path: /etc/piVCCU3/lxc.config
+    regexp: ^(lxc.network.link =)
+    line: \1 br0
+    backrefs: true
+    backup: yes
+    state: present
+  register: bridge_configured
+
+- name: Restart service
+  systemd:
+      name: pivccu
+      state: restarted
+  when: bridge_configured.changed
+
 - name: Get information
   command:
     pivccu-info
