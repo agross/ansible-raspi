@@ -26,5 +26,11 @@
     - name: pivccu
       tags: pivccu
 
-# pivccu network kaputt nach reboot mit bridge und neustart
+- name: Install MQTT
+  hosts: raspberries
+  become: true
+  roles:
+    - name: mqtt
+      tags: mqtt
+
 # keyboard layout, US localization
