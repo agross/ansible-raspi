@@ -6,13 +6,12 @@
       - libssl-dev
     state: latest
 
-- name: Check if docker-compose is installed
+- name: Get installed pip3 packages
   shell:
-    pip3 list | grep docker-compose
+    pip3 list
   changed_when: false
-  ignore_errors: true
-  register: installed
+  register: installed_packages
 
 - name: Install docker-compose
   command: pip3 install docker-compose
-  when: installed is failed
+  when: not 'docker-compose' in installed_packages.stdout
