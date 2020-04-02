@@ -40,4 +40,11 @@
     - name: iobroker
       tags: iobroker
 
+- name: Install InfluxDB + Grafana logger
+  hosts: raspberries
+  become: true
+  roles:
+    - name: logger
+      tags: logger
+
 # keyboard layout, US localization
