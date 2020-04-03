@@ -9,7 +9,7 @@
 - name: Update boot command line
   replace:
     path: /boot/cmdline.txt
-    regexp: (\s+root=){{ ansible_facts['cmdline']['root'] }}(\s+)
+    regexp: (\s+root=){{ ansible_facts['cmdline']['root'] | regex_escape }}(\s+)
     replace: \1{{ partuuid }}\2
   register: boot_command_line
 
