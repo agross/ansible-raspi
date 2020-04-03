@@ -1,0 +1,5 @@
+- name: Install tools
+  apt:
+    name: "{{ item }}"
+    state: latest
+  loop: "{{ requirements }}"

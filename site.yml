@@ -54,4 +54,9 @@
     - name: logger
       tags: logger
 
-# keyboard layout, US localization
+- name: Install tools
+  hosts: raspberries
+  become: true
+  roles:
+    - name: tools
+      tags: tools
