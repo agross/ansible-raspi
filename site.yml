@@ -1,3 +1,10 @@
+- name: Run raspi-config
+  hosts: raspberries
+  become: true
+  roles:
+    - name: raspi-config
+      tags: raspi-config
+
 - name: Boot from external disk
   hosts: raspberries
   become: true
