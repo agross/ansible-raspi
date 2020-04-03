@@ -1,0 +1,23 @@
+- name: Install requirements
+  apt:
+    name: "{{ item }}"
+    state: latest
+  loop: "{{ requirements }}"
+
+- name: Clone dotfiles
+  become: false
+  git:
+    repo: https://github.com/agross/dotfiles.git
+    dest: "/home/{{ ansible_user }}/.dotfiles"
+
+- name: Bootstrap dotfiles
+  become: false
+  command:
+    /home/{{ ansible_user }}/.dotfiles/bootstrap --force
+  register: bootstrapper
+  changed_when: "'Linked' in bootstrapper.stdout"
+
+- name: Change shell to zsh
+  user:
+    name: "{{ ansible_user }}"
+    shell: /bin/zsh

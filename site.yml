@@ -60,3 +60,10 @@
   roles:
     - name: tools
       tags: tools
+
+- name: Install dotfiles
+  hosts: raspberries
+  become: true
+  roles:
+    - name: dotfiles
+      tags: dotfiles
