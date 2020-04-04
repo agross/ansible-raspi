@@ -15,7 +15,7 @@
   command:
     /home/{{ ansible_user }}/.dotfiles/bootstrap --force
   register: bootstrapper
-  changed_when: "'Linked' in bootstrapper.stdout"
+  changed_when: "'] Linked' in bootstrapper.stdout"
 
 - name: Change shell to zsh
   user:
