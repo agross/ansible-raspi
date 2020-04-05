@@ -1,3 +1,9 @@
+- name: Create root directory
+  file:
+    path: "{{ root }}"
+    state: directory
+  notify: Restart service
+
 - name: Create directories
   file:
     path: "{{ root }}/{{ item.path }}"
