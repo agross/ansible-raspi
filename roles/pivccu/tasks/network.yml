@@ -52,7 +52,7 @@
 
     - name: Add firewall rules for docker compatibility before starting docker
       template:
-        src: ../templates/docker-service-override.conf.j2
+        src: ../templates/docker-service-override.conf
         dest: /etc/systemd/system/docker.service.d/pivccu-compatibility.conf
 
     - name: Reload systemd
