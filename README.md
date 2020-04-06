@@ -7,6 +7,8 @@ The setup of my Raspberry Pi used for home-automation:
 * piVCCU3 (Homematic IP)
 * ioBroker
 * MQTT for e.g. Tasmota plugs
+* InfluxDB for logging from ioBroker
+* Grafana for visualizations
 
 
 ## Prepare the SD card
