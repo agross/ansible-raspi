@@ -1,8 +1,7 @@
 - name: Install requirements
   apt:
-    name: "{{ item }}"
+    name: "{{ requirements }}"
     state: latest
-  loop: "{{ requirements }}"
 
 - name: Clone dotfiles
   become: false
