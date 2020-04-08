@@ -1,5 +1,6 @@
 - name: Run raspi-config
   hosts: raspberries
+  gather_facts: false
   become: true
   roles:
     - name: raspi-config
@@ -14,6 +15,7 @@
 
 - name: Update OS
   hosts: raspberries
+  gather_facts: false
   become: true
   roles:
     - name: update
@@ -28,6 +30,7 @@
 
 - name: Install piVCCU
   hosts: raspberries
+  gather_facts: false
   become: true
   roles:
     - name: pivccu
@@ -56,6 +59,7 @@
 
 - name: Install tools
   hosts: raspberries
+  gather_facts: false
   become: true
   roles:
     - name: tools
@@ -63,6 +67,7 @@
 
 - name: Install dotfiles
   hosts: raspberries
+  gather_facts: false
   become: true
   roles:
     - name: dotfiles
@@ -70,6 +75,7 @@
 
 - name: Install LED heartbeat
   hosts: raspberries
+  gather_facts: false
   become: true
   roles:
     - name: led-heartbeat
