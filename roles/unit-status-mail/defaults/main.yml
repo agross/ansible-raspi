@@ -1,0 +1,10 @@
+requirements:
+  - git
+  - msmtp-mta
+
+recipients:
+  - monitoring@therightstuff.de
+  - agross@therightstuff.de
+
+smtp_sender_address: no-reply@therightstuff.de
+smtp_sender_password:

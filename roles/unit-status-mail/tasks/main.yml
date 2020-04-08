@@ -1,0 +1,46 @@
+- name: Install requirements
+  apt:
+    name: "{{ requirements }}"
+    state: latest
+
+- name: Configure msmtp to relay via Gmail
+  template:
+    src: ../templates/msmtprc.j2
+    dest: /etc/msmtprc
+    mode: 0600
+    owner: root
+    group: root
+    force: true
+
+- name: Clone agross/unit-status-mail
+  git:
+    repo: https://github.com/agross/systemd-unit-status-mail.git
+    dest: /data/unit-status-mail
+
+- name: Symlink systemd unit file
+  file:
+    state: link
+    src: /data/unit-status-mail/unit-status-mail@.service
+    path: /etc/systemd/system/unit-status-mail@.service
+    force: true
+
+- name: Symlink script
+  file:
+    state: link
+    src: /data/unit-status-mail/unit-status-mail
+    path: /etc/systemd/system/unit-status-mail
+    force: true
+
+- name: Create directory for service override
+  file:
+    path: /etc/systemd/system/unit-status-mail@.service.d/
+    state: directory
+
+- name: Configure recipients
+  template:
+    src: ../templates/recipients.conf.j2
+    dest: /etc/systemd/system/unit-status-mail@.service.d/recipients.conf
+
+- name: Reload systemd
+  systemd:
+    daemon_reload: true

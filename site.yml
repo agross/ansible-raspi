@@ -80,3 +80,10 @@
   roles:
     - name: led-heartbeat
       tags: led-heartbeat
+
+- name: Install unit-status-mail
+  hosts: raspberries
+  become: true
+  roles:
+    - name: unit-status-mail
+      tags: unit-status-mail
