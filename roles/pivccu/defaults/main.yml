@@ -1,4 +1,4 @@
-# This should be set to true a transceiver on the GPIO pins is used:
+# This should be set to true if a transceiver on the GPIO pins is used:
 # - HM-MOD-RPI-PCB or
 # - RPI-RF-MOD
 gpio_header_transceiver: true
