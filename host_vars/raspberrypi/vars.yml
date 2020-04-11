@@ -1,1 +1,3 @@
 grafana_api_key: "{{ vault_grafana_api_key }}"
+
+smtp_sender_password:: "{{ smtp_sender_password }}"
