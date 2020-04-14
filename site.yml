@@ -1,89 +1,27 @@
-- name: Run raspi-config
-  hosts: raspberries
-  gather_facts: false
+- hosts: raspberries
   become: true
   roles:
     - name: raspi-config
       tags: raspi-config
-
-- name: Boot from external disk
-  hosts: raspberries
-  become: true
-  roles:
     - name: external-boot
       tags: external-boot
-
-- name: Update OS
-  hosts: raspberries
-  gather_facts: false
-  become: true
-  roles:
     - name: update
       tags: update
-
-- name: Install docker and docker-compose
-  hosts: raspberries
-  become: true
-  roles:
     - name: docker
       tags: docker
-
-- name: Install piVCCU
-  hosts: raspberries
-  gather_facts: false
-  become: true
-  roles:
     - name: pivccu
       tags: pivccu
-
-- name: Install MQTT
-  hosts: raspberries
-  become: true
-  roles:
     - name: mqtt
       tags: mqtt
-
-- name: Install ioBroker
-  hosts: raspberries
-  become: true
-  roles:
     - name: iobroker
       tags: iobroker
-
-- name: Install InfluxDB + Grafana logger
-  hosts: raspberries
-  become: true
-  roles:
     - name: logger
       tags: logger
-
-- name: Install tools
-  hosts: raspberries
-  gather_facts: false
-  become: true
-  roles:
     - name: tools
       tags: tools
-
-- name: Install dotfiles
-  hosts: raspberries
-  gather_facts: false
-  become: true
-  roles:
     - name: dotfiles
       tags: dotfiles
-
-- name: Install LED heartbeat
-  hosts: raspberries
-  gather_facts: false
-  become: true
-  roles:
     - name: led-heartbeat
       tags: led-heartbeat
-
-- name: Install unit-status-mail
-  hosts: raspberries
-  become: true
-  roles:
     - name: unit-status-mail
       tags: unit-status-mail
