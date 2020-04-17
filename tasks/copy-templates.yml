@@ -2,7 +2,7 @@
   file:
     path: "{{ root }}"
     state: directory
-  notify: Restart service
+  notify: "{{ notify }}"
 
 - name: Create directories
   file:
@@ -12,7 +12,7 @@
   with_filetree: "{{ directory }}"
   loop_control:
     label: "{{ item.path }}"
-  notify: Restart service
+  notify: "{{ notify }}"
 
 - name: Copy non-template files
   copy:
@@ -26,7 +26,7 @@
   with_filetree: "{{ directory }}"
   loop_control:
     label: "{{ item.path }}"
-  notify: Restart service
+  notify: "{{ notify }}"
 
 - name: Copy template files
   template:
@@ -41,4 +41,4 @@
   with_filetree: "{{ directory }}"
   loop_control:
     label: "{{ item.path }}"
-  notify: Restart service
+  notify: "{{ notify }}"
