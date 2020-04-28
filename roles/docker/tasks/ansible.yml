@@ -5,17 +5,19 @@
       - python-setuptools
     state: latest
 
-- name: Install python-backports.ssl-match-hostname (Debian Buster)
+- name: Install python-backports (Debian Buster)
   apt:
     name:
       - python-backports.ssl-match-hostname
+      - python-backports-shutil-get-terminal-size
     state: latest
   when:
     ansible_distribution == 'Debian' and
     ansible_distribution_release == 'buster'
 
-- name: Install required pip packages to use docker with Ansible
+- name: Install required pip packages to use docker and docker-compose with Ansible
   pip:
     name:
       - docker
+      - docker-compose
     state: latest
