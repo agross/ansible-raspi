@@ -1,0 +1,6 @@
+- hosts: tasmotas
+  become: false
+  gather_facts: false
+  roles:
+    - name: tasmota-update
+      tags: tasmota-update
