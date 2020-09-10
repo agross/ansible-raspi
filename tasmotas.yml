@@ -2,5 +2,7 @@
   become: false
   gather_facts: false
   roles:
+    - name: tasmota-config
+      tags: tasmota-config
     - name: tasmota-update
       tags: tasmota-update

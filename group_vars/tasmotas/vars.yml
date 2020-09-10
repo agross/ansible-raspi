@@ -1,0 +1,18 @@
+tasmota_password: "{{ vault_tasmota_password }}"
+
+mqtt_host: mqtt
+mqtt_user: "{{ vault_mqtt_user }}"
+mqtt_password: "{{ vault_mqtt_password }}"
+mqtt_port: 1883
+# Suffix because of https://github.com/arendst/Tasmota/issues/9282.
+mqtt_client: "{{ inventory_hostname_short }}-client"
+
+# Device function, e.g. power, lights, climate.
+function: power
+
+mqtt_root_topic: home
+mqtt_topic: >-
+  {{ mqtt_root_topic }}/{{ room | lower | replace(' ', '-') }}/{{ function }}/%prefix%/%topic%/
+
+friendly_name: >-
+  {{ device_model }} #{{ inventory_hostname_short | regex_search('(?<=-)\d+$') }} {{ room }} {% if installation_location is defined %}{{ installation_location }} {% endif %}{{ purpose }}

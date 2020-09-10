@@ -1,0 +1,9 @@
+device_model: Gosund SP111
+
+template: >-
+  {"NAME":"Gosund SP111 v2","GPIO":[56,0,57,0,132,134,0,0,131,17,0,21,0],"FLAG":0,"BASE":18}
+
+# Disable LED, but enable when there are connection issues.
+custom_backlog: |
+  LedPower 0
+  SetOption31 0
