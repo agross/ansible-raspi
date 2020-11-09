@@ -5,4 +5,4 @@ purpose: Light Switch
 # possible to switch lights without also switching the relay which would produce
 # a clicking sound.
 template: >-
-  {"NAME":"Shelly 1 w/o Relay","GPIO":[255,255,0,255,0,82,0,0,0,0,0,0,0],"FLAG":0,"BASE":46}
+  {"NAME":"Shelly 1 w/o Relay","GPIO":[1,1,0,1,0,192,0,0,0,0,0,0,0,0],"FLAG":0,"BASE":46}
