@@ -1,4 +1,4 @@
-- hosts: fleet
+- hosts: raspberries
   become: true
   roles:
     - name: raspi-config
