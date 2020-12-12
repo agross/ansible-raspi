@@ -1,4 +1,0 @@
-ansible_ssh_user: pi
-ansible_python_interpreter: python
-
-ansible_ssh_common_args: '-o ProxyCommand="ssh -W %h:%p -q agross@home.therightstuff.de"'
