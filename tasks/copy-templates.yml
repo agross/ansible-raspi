@@ -2,7 +2,7 @@
   file:
     path: "{{ root }}"
     state: directory
-  notify: "{{ notify }}"
+  notify: "{{ notify | default('') }}"
 
 - name: Create directories
   file:
@@ -12,7 +12,7 @@
   with_filetree: "{{ directory }}"
   loop_control:
     label: "{{ item.path }}"
-  notify: "{{ notify }}"
+  notify: "{{ notify | default('') }}"
 
 - name: Copy non-template files
   copy:
@@ -26,7 +26,7 @@
   with_filetree: "{{ directory }}"
   loop_control:
     label: "{{ item.path }}"
-  notify: "{{ notify }}"
+  notify: "{{ notify | default('') }}"
 
 - name: Copy template files
   template:
@@ -41,4 +41,4 @@
   with_filetree: "{{ directory }}"
   loop_control:
     label: "{{ item.path }}"
-  notify: "{{ notify }}"
+  notify: "{{ notify | default('') }}"

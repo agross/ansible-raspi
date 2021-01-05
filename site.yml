@@ -5,6 +5,8 @@
       tags: raspi-config
     - name: external-boot
       tags: external-boot
+    - name: fstrim
+      tags: fstrim
     - name: update
       tags: update
     - name: docker
