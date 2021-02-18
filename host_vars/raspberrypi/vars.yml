@@ -1,5 +1,18 @@
 grafana_api_key: "{{ vault_grafana_api_key }}"
 
-smtp_sender_password:: "{{ smtp_sender_password }}"
+smtp_sender_password: "{{ vault_smtp_sender_password }}"
+
+grafana:
+  root_url: "{{ vault_grafana.root_url }}"
+  github:
+    client_id: "{{ vault_grafana.github.client_id }}"
+    client_secret: "{{ vault_grafana.github.client_secret }}"
+  google:
+    client_id: "{{ vault_grafana.google.client_id }}"
+    client_secret: "{{ vault_grafana.google.client_secret }}"
+  smtp:
+    host: "{{ vault_grafana.smtp.host }}"
+    user: "{{ vault_grafana.smtp.user }}"
+    password: "{{ vault_grafana.smtp.password }}"
 
 iobroker_wake_on_lan: true
