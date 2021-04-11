@@ -9,6 +9,8 @@
       tags: fstrim
     - name: persistent-journal
       tags: persistent-journal
+    - name: libseccomp2
+      tags: libseccomp2
     - name: update
       tags: update
     - name: docker
