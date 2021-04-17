@@ -1,0 +1,19 @@
+- hosts: kubes
+  become: true
+  roles:
+    - name: raspi-config
+      tags: raspi-config
+    - name: persistent-journal
+      tags: persistent-journal
+    - name: libseccomp2
+      tags: libseccomp2
+    - name: update
+      tags: update
+    - name: tools
+      tags: tools
+    - name: dotfiles
+      tags: dotfiles
+    - name: led-heartbeat
+      tags: led-heartbeat
+    - name: unit-status-mail
+      tags: unit-status-mail
