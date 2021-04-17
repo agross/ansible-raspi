@@ -1,0 +1,4 @@
+- hosts: kubes
+  become: true
+  roles:
+    - name: shutdown
