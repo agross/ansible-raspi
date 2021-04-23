@@ -1,5 +1,7 @@
-- hosts: raspberries
+- hosts: home_raspberries
   become: true
+  handlers:
+    - include: handlers/noop.yml
   roles:
     - name: raspi-config
       tags: raspi-config
