@@ -1,3 +1,5 @@
+case: argon-one
+
 grafana_api_key: "{{ vault_grafana_api_key }}"
 grafana_admin_user: "{{ vault_grafana_admin_user }}"
 grafana_admin_password: "{{ vault_grafana_admin_password }}"

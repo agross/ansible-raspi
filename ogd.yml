@@ -21,3 +21,5 @@
       tags: led-heartbeat
     - name: unit-status-mail
       tags: unit-status-mail
+    - name: argon-one
+      tags: argon-one
