@@ -6,6 +6,9 @@ grafana_admin_password: "{{ vault_grafana_admin_password }}"
 
 smtp_sender_password: "{{ vault_smtp_sender_password }}"
 
+netdata_extra_args: >-
+  -W set global 'update every' 15
+
 grafana:
   root_url: "{{ vault_grafana.root_url }}"
   github:
