@@ -23,3 +23,7 @@
       tags: unit-status-mail
     - name: argon-one
       tags: argon-one
+    - name: bridge
+      tags: bridge
+    - name: adguard
+      tags: adguard

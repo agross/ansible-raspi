@@ -1,0 +1,4 @@
+- name: Restart adguard service
+  systemd:
+    name: "{{ service_name }}"
+    state: restarted

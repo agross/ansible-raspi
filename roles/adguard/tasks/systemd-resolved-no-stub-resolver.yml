@@ -1,0 +1,24 @@
+- name: Ensure directory for systemd-resolved overrides exists
+  ansible.builtin.file:
+    path: /etc/systemd/resolved.conf.d
+    state: directory
+
+- name: Disable DNS stub listener
+  ansible.builtin.copy:
+    dest: /etc/systemd/resolved.conf.d/no-dns-stub-listener.conf
+    content: |
+      [Resolve]
+      DNS=127.0.0.1
+      DNSStubListener=no
+
+- name: Symlink /etc/resolv.conf to /run/systemd/resolve/resolv.conf
+  ansible.builtin.file:
+    path: /etc/resolv.conf
+    src: /run/systemd/resolve/resolv.conf
+    state: link
+    force: true
+
+- name: Restart systemd-resolved
+  ansible.builtin.systemd:
+    name: systemd-resolved.service
+    state: restarted

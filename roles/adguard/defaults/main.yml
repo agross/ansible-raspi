@@ -1,0 +1,3 @@
+service_name: adguard
+
+root: /data/{{ service_name }}

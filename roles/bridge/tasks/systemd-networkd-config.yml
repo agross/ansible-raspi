@@ -1,0 +1,49 @@
+- name: Ensure directory for systemd-resolved overrides exists
+  ansible.builtin.file:
+    path: /etc/systemd/resolved.conf.d
+    state: directory
+
+- name: Disable DNSSEC
+  ansible.builtin.copy:
+      dest: /etc/systemd/resolved.conf.d/no-dnssec.conf
+      content: |
+        [Resolve]
+        DNSSEC=false
+
+- name: Install systemd-networkd
+  include_role:
+    name: aruhier.systemd_networkd
+  vars:
+    systemd_networkd_netdev:
+      br0:
+        - NetDev:
+          - Name: br0
+          - Kind: bridge
+
+    systemd_networkd_network:
+      br0:
+        - Match:
+          - Name: br0
+        - Network:
+          - Address: 192.168.0.2/24
+          - Gateway: 192.168.0.1
+          - DNS: 192.168.0.1
+          - MulticastDNS: true
+          - Domains: ogd.therightstuff.de
+
+      eth0:
+        - Match:
+          - Name: eth0
+        - Network:
+          - Bridge: br0
+          - LinkLocalAddressing: false
+
+      lte:
+        - Match:
+          - Driver: rndis_host
+        - Network:
+          - Bridge: br0
+          - LinkLocalAddressing: false
+
+    systemd_networkd_enable_resolved: true
+    systemd_networkd_symlink_resolv_conf: true

@@ -1,0 +1,17 @@
+- include: uninstall-classic-networking.yml
+- include: systemd-networkd-config.yml
+
+- name: Start systemd-networkd
+  ansible.builtin.systemd:
+    name: systemd-networkd
+    state: started
+
+# https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=865975#91
+- name: Enable IPv4 forwarding such that docker will not interfere with bridge DHCP
+  ansible.posix.sysctl:
+    name: net.ipv4.ip_forward
+    value: '1'
+    sysctl_file: /etc/sysctl.d/10-ipv4-forward.conf
+    sysctl_set: true
+    state: present
+    reload: true
