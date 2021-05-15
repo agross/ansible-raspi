@@ -5,6 +5,28 @@
     directory: ../templates
     notify: Restart adguard service
 
+- name: Install nftables
+  ansible.builtin.apt:
+    name: nftables
+    state: latest
+
+- name: Symlink nftables config file, disallowing DHCP to traverse the bridge
+  ansible.builtin.file:
+    state: link
+    src: "{{ root }}/nftables.conf"
+    path: /etc/nftables.conf
+    force: true
+    mode: '766'
+    owner: root
+    group: root
+
+- name: Start nftables service
+  ansible.builtin.systemd:
+    state: started
+    enabled: true
+    name: nftables
+    daemon_reload: true
+
 - name: Symlink systemd unit file
   ansible.builtin.file:
     state: link

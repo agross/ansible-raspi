@@ -9,13 +9,7 @@ ExecStart=/usr/bin/docker run \
                           --name '%p' \
                           --hostname '%p' \
                           --rm \
-                          --publish 53:53/tcp \
-                          --publish 53:53/udp \
-                          --publish 80:80 \
-                          --publish 3000:3000 \
-                          --publish 443:443 \
-                          --publish 853:853 \
-                          --publish 1883:1883 \
+                          --network host \
                           --volume '{{ root }}/app/work:/opt/adguardhome/work' \
                           --volume '{{ root }}/app/conf:/opt/adguardhome/conf' \
                           adguard/adguardhome

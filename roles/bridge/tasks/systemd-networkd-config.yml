@@ -30,6 +30,21 @@
           - DNS: 192.168.0.1
           - MulticastDNS: true
           - Domains: ogd.therightstuff.de
+          # systemd 241 on Raspbian does not support SendOption and
+          # SendVendorOption so it is not usable.
+          - DHCPServer: false
+        - DHCPServer:
+          - PoolOffset: 10
+          - PoolSize: 50
+          - DefaultLeaseTimeSec: 600
+          - MaxLeaseTimeSec: 7200
+          - EmitDNS: true
+          - DNS: 192.168.0.2
+          # Custom router address requires SendOption.
+          - EmitRouter: false
+          - SendOption: 3:ipv4address:192.168.0.1
+          - EmitTimezone: true
+          - SendVendorOption: 43:string:ANDROID_METERED
 
       eth0:
         - Match:
