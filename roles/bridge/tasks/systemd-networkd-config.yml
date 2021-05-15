@@ -5,10 +5,10 @@
 
 - name: Disable DNSSEC
   ansible.builtin.copy:
-      dest: /etc/systemd/resolved.conf.d/no-dnssec.conf
-      content: |
-        [Resolve]
-        DNSSEC=false
+    dest: /etc/systemd/resolved.conf.d/no-dnssec.conf
+    content: |
+      [Resolve]
+      DNSSEC=false
 
 - name: Install systemd-networkd
   include_role:
