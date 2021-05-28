@@ -1,0 +1,2 @@
+service_name: iobroker
+iobroker_app_container_name: "{{ service_name }}_app_1"

@@ -1,0 +1,5 @@
+- hosts: home_raspberries
+  become: true
+  roles:
+    - name: iobroker-upgrade-self
+      tags: iobroker-upgrade-self

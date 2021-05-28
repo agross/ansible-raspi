@@ -1,0 +1,30 @@
+- name: Stop healthcheck timer
+  systemd:
+    state: stopped
+    name: "{{ service_name }}-healthcheck.timer"
+
+- name: Upgrade ioBroker's js-controller
+  ansible.builtin.command:
+    argv:
+      - docker
+      - exec
+      - "{{ iobroker_app_container_name }}"
+      - sh
+      - -c
+      - 'pkill -u iobroker; iob upgrade self'
+  register: upgrade_output
+
+- name: Show information
+  ansible.builtin.debug:
+    var: upgrade_output
+  changed_when: false
+
+- name: Restart service
+  ansible.builtin.systemd:
+    state: restarted
+    name: "{{ service_name }}"
+
+- name: Start healthcheck timer
+  systemd:
+    state: started
+    name: "{{ service_name }}-healthcheck.timer"
