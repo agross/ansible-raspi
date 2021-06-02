@@ -21,6 +21,8 @@
       tags: pivccu
     - name: mqtt
       tags: mqtt
+    - name: adb-server
+      tags: adb-server
     - name: iobroker
       tags: iobroker
     - name: logger

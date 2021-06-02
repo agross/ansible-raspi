@@ -1,0 +1,4 @@
+- name: Restart adb-server service
+  systemd:
+    name: "{{ service_name }}"
+    state: restarted

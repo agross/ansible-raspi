@@ -1,0 +1,19 @@
+- import_tasks: copy-templates.yml
+  vars:
+    directory: ../templates
+    notify: Restart adb-server service
+
+- name: Symlink systemd unit file
+  file:
+    state: link
+    src: "{{ root }}/adb-server.service"
+    path: /etc/systemd/system/{{ service_name }}.service
+    force: true
+  notify: Restart iobroker service
+
+- name: Start service
+  systemd:
+    state: started
+    enabled: true
+    name: "{{ service_name }}"
+    daemon_reload: true
