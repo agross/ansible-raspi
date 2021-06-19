@@ -15,3 +15,11 @@
     sysctl_set: true
     state: present
     reload: true
+
+- name: Install speed monitoring script
+  copy:
+    src: ../templates/speed
+    dest: /usr/local/bin/speed
+    mode: '755'
+    # Overwrite existing files.
+    force: true
