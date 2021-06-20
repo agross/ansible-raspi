@@ -16,6 +16,8 @@
     state: present
     reload: true
 
+- include: ipv6-support.yml
+
 - name: Install speed monitoring script
   copy:
     src: ../templates/speed

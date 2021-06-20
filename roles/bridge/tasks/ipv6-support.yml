@@ -1,0 +1,28 @@
+- name: Enable IPv6 forwarding
+  ansible.posix.sysctl:
+    name: net.ipv6.conf.all.forwarding
+    value: '1'
+    sysctl_file: /etc/sysctl.d/20-ipv6-forward.conf
+    sysctl_set: true
+    state: present
+    reload: true
+
+- name: Copy radvd config file
+  copy:
+    src: ../templates/radvd.conf
+    dest: /etc/radvd.conf
+    mode: '644'
+    # Overwrite existing files.
+    force: true
+  notify: Restart radvd service
+
+- name: Install radvd
+  ansible.builtin.apt:
+    name: radvd
+    state: latest
+
+- name: Enable and start radvd
+  ansible.builtin.systemd:
+    state: started
+    enabled: true
+    name: radvd
