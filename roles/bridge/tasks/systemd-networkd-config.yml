@@ -62,3 +62,4 @@
 
     systemd_networkd_enable_resolved: true
     systemd_networkd_symlink_resolv_conf: true
+    systemd_networkd_apply_config: true
